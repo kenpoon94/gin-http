@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"example.com/gohttp/platform/newsfeed"
+	"example.com/gin-http/platform/newsfeed"
 	"github.com/gin-gonic/gin"
 )
 

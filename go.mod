@@ -1,4 +1,4 @@
-module example.com/gohttp
+module example.com/gin-http
 
 go 1.16
 
