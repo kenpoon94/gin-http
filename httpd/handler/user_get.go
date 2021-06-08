@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 
+	"example.com/gin-http/database"
 	"example.com/gin-http/platform/user"
 	"github.com/gin-gonic/gin"
 )
@@ -25,5 +26,13 @@ func GetUser(u user.Getter) gin.HandlerFunc {
 		} else {
 			c.JSON(http.StatusOK,  results)
 		}
+	}
+}
+
+func GetUserFromDB(username string) gin.HandlerFunc{
+	return func(c *gin.Context){
+		db := database.Connect()
+		result := db.Find()
+		c.JSON(http.StatusOK, result)
 	}
 }

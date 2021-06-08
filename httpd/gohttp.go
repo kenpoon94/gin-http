@@ -20,6 +20,8 @@ func main() {
 	r.GET("/user/:username", handler.GetUser(user))
 	r.POST("/user/new", handler.CreateAccount(user))
 
+	r.GET("/database/user", handler.GetUserFromDB("test"))
+
 	r.Run(":8080")
 	
 
