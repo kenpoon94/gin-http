@@ -13,3 +13,4 @@ Simple API endpoint using gin-gonic/gin
 
 ### MongoDB query test with cursor
 - /database/user [GET]
+- /database/user [POST] ~ IN PROGRESS
