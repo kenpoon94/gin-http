@@ -2,13 +2,13 @@ package database
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 	"time"
 
 	"example.com/gin-http/utils"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -51,12 +51,12 @@ func Connect() *DB {
 }
 
 type User struct {
-	ID       string    `json:"_id"`
-	Name     string    `json:"name"`
-	Jobtitle string    `json:"jobtitle"`
-	Age      int       `json:"age"`
-	City     string    `json:"city"`
-	Hobbies	 []*string  `json:"hobbies"`
+	ID       primitive.ObjectID `bson:"_id,omitempty"`
+	Name     string    `bson:"name,omitempty"`
+	Jobtitle string    `bson:"jobtitle,omitempty"`
+	Age      int       `bson:"age,omitempty"`
+	City     string    `bson:"city,omitempty"`
+	Hobbies	 []string  `bson:"hobbies,omitempty"`
 }
 
 func (db* DB) Find()  []User{
@@ -68,21 +68,9 @@ func (db* DB) Find()  []User{
 		log.Fatal(err)
 	}
 
-	var jsonDocs []User
-	var newUser User 
-	for cur.Next(ctx){
-		var user bson.D 
-		err := cur.Decode(&user)
-		if err != nil {
-			log.Fatal(err)
-		}
-		tempBytes, err := bson.MarshalExtJSON(user, true, true)
-		fmt.Println(user)
-		if err != nil {
-			log.Fatal(err)
-		}
-		json.Unmarshal(tempBytes, &newUser)
-		jsonDocs = append(jsonDocs, newUser)
+	var users []User
+	if err = cur.All(ctx, &users); err != nil {
+		log.Fatal(err)
 	}
-	return jsonDocs
+	return users
 }
