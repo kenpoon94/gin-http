@@ -1,17 +1,14 @@
 package utils
 
 import (
-	"log"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
+// Simple helper function to read an environment or return a default value
+func GetEnv(key string, defaultVal string) string {
+    if value, exists := os.LookupEnv(key); exists {
+	return value
+    }
 
-func GetEnvVariable(key string) string {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatalf("Error loading .env files")
-	}
-	return os.Getenv(key)
+    return defaultVal
 }

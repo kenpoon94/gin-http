@@ -1,12 +1,21 @@
 package main
 
 import (
+	"log"
+
 	"example.com/gin-http/httpd/handler"
 	"example.com/gin-http/platform/newsfeed"
 	"example.com/gin-http/platform/user"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
+
+func init(){
+	if err := godotenv.Load(".env"); err != nil {
+		log.Print("No .env file found. Using default values.")
+	}
+}
 
 func main() {
 	feed := newsfeed.New()

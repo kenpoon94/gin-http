@@ -14,9 +14,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 ) 
 
-var host = utils.GetEnvVariable("MONGODB_HOST")
-var port = utils.GetEnvVariable("MONGODB_PORT")
-var database = utils.GetEnvVariable("MONGODB_DATABASE")
+var host = utils.GetEnv("MONGODB_HOST", "localhost")
+var port = utils.GetEnv("MONGODB_PORT", "27017")
+var database = utils.GetEnv("MONGODB_DATABASE", "kkd")
 
 type DB struct {
 	client *mongo.Client
