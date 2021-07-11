@@ -32,6 +32,4 @@ func main() {
 	r.GET("/database/user", handler.GetUserFromDB("test"))
 
 	r.Run(":8080")
-	
-
 }
